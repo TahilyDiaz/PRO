@@ -108,7 +108,7 @@ public class Principal {
 		Estudiante[][] todos = new Datos().getEstudianteCentro();
 		Practica.listarTodosEst(todos);
 
-		Practica.listarEst2(lista);
+		prac.listarEst2(lista);
 
 		String[] islas = { "LP", "GOM", "HIE", "TFE", "GC", "LTE", "FTV" };
 
