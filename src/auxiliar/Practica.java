@@ -441,6 +441,8 @@ public class Practica {
 		return l3;
 	}
 
+	
+	//SOLUCIÓN MAURICIO
 	public int[] mezclaArrays(int[] l1, int[] l2) {
 		int i = 0, j = 0, k = 0;
 		int[] resultado = new int[l1.length + l2.length];
