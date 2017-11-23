@@ -195,5 +195,19 @@ public class Principal {
 			System.out.println(listEstudiantes[i]);
 		}
 
+		System.out.println("----------");
+		int[] l1 = { 8, 3, 5, 9, 0 };
+		int[] l2 = { 2, 7, 1, 1, 11 };
+		int[] l3 = prac.ordenarLista(l1, l2);
+		for (int i = 0; i < l3.length; i++) {
+			System.out.println(l3[i]);
+		}
+		
+		int[]l4 = {1,3,5,7,9};
+		int[]l5 = {2,4,6,8,10,12,14};
+		int[] l6 = prac.mezclaArrays(l4, l5);
+		for (int i = 0; i < l6.length; i++) {
+			System.out.println(l6[i]);
+		}
 	}
 }

@@ -316,46 +316,44 @@ public class Practica {
 	public float calculaSaldo(String[] movimientos, float saldoInicial) {
 		float saldoFinal = saldoInicial;
 		float[] res = new float[movimientos.length];
-		
-			for (int i = 0; i < movimientos.length; i++) {
-				try {
-					res[i] = Float.parseFloat(movimientos[i]);
-					saldoFinal += res[i];
-				} catch (NumberFormatException e) {
-				}
+
+		for (int i = 0; i < movimientos.length; i++) {
+			try {
+				res[i] = Float.parseFloat(movimientos[i]);
+				saldoFinal += res[i];
+			} catch (NumberFormatException e) {
 			}
-		
+		}
+
 		return saldoFinal;
 	}
-	
-	
+
 	public int numerosSeparados(int num) {
 		int sum = 0;
-		while(num !=0) {
-			sum+=num%10;
-			num=num/10;
+		while (num != 0) {
+			sum += num % 10;
+			num = num / 10;
 		}
 		return sum;
 	}
-	
+
 	public int cadenaSumaNumeros(String num1) {
 		int largocad = num1.length();
 		int sum = 0;
-		
-		for(int i=0; i<largocad; i++)
-		{  
-	         if (Character.isDigit(num1.charAt(i))) 
-	            sum += Integer.parseInt("" + num1.charAt(i));         
-	       }
+
+		for (int i = 0; i < largocad; i++) {
+			if (Character.isDigit(num1.charAt(i)))
+				sum += Integer.parseInt("" + num1.charAt(i));
+		}
 		return sum;
 	}
-	
+
 	public int[] ordenaEnteros(int[] numeros) {
 		int aux;
-		for (int i = 0; i < numeros.length -1; i++) {
-			for (int j = i+1; j < numeros.length; j++) {
-				if(numeros[j] < numeros[i]) {
-					aux=numeros[i];
+		for (int i = 0; i < numeros.length - 1; i++) {
+			for (int j = i + 1; j < numeros.length; j++) {
+				if (numeros[j] < numeros[i]) {
+					aux = numeros[i];
 					numeros[i] = numeros[j];
 					numeros[j] = aux;
 				}
@@ -363,27 +361,25 @@ public class Practica {
 		}
 		return numeros;
 	}
-	
-	
+
 	public void ordenaEnteros2(int[] numeros) {
 		int aux;
 		for (int i = 0; i < numeros.length - 1; i++) {
-			for (int j = i+1; j < numeros.length; j++) {
-				if(numeros[i] > numeros[j]) {
-					aux=numeros[i];
+			for (int j = i + 1; j < numeros.length; j++) {
+				if (numeros[i] > numeros[j]) {
+					aux = numeros[i];
 					numeros[i] = numeros[j];
 					numeros[j] = aux;
 				}
 			}
 		}
 	}
-	
-	
+
 	public void ordenaCadenas(String[] cadena) {
 		String aux;
-		for (int i = 0; i < cadena.length -1; i++) {
-			for (int j = i+1; j < cadena.length; j++) {
-				if(cadena[i].compareTo(cadena[j]) > 0) {
+		for (int i = 0; i < cadena.length - 1; i++) {
+			for (int j = i + 1; j < cadena.length; j++) {
+				if (cadena[i].compareTo(cadena[j]) > 0) {
 					aux = cadena[i];
 					cadena[i] = cadena[j];
 					cadena[j] = aux;
@@ -391,11 +387,11 @@ public class Practica {
 			}
 		}
 	}
-	
+
 	public void ordenarEstudiantes(Estudiante[] estudiantes) {
 		Estudiante aux;
-		for (int i = 0; i < estudiantes.length -1; i++) {
-			for (int j = i+1; j < estudiantes.length; j++) {
+		for (int i = 0; i < estudiantes.length - 1; i++) {
+			for (int j = i + 1; j < estudiantes.length; j++) {
 				if (estudiantes[i].compareTo(estudiantes[j]) > 0) {
 					aux = estudiantes[i];
 					estudiantes[i] = estudiantes[j];
@@ -404,7 +400,69 @@ public class Practica {
 			}
 		}
 	}
-	
-	
-	
+
+	public int[] ordenarLista(int[] l1, int[] l2) {
+		Practica pr = new Practica();
+
+		pr.ordenaEnteros(l1);
+		pr.ordenaEnteros(l2);
+
+		int[] l3 = new int[l1.length + l2.length];
+
+		int i = 0, j = 0, ind = 0;
+
+		while (true) {
+			if (l1[i] < l2[j]) {
+				l3[ind] = l1[i];
+				i++;
+			} else {
+				l3[ind] = l2[j];
+				j++;
+			}
+
+			ind++;
+
+			if (i == l1.length) {
+				for (int k = j; k < l2.length; k++) {
+					l3[ind] = l2[k];
+					ind++;
+				}
+				break;
+			}
+
+			if (j == l2.length) {
+				for (int m = i; m < l1.length; m++) {
+					l3[ind] = l1[m];
+					ind++;
+				}
+				break;
+			}
+		}
+		return l3;
+	}
+
+	public int[] mezclaArrays(int[] l1, int[] l2) {
+		int i = 0, j = 0, k = 0;
+		int[] resultado = new int[l1.length + l2.length];
+
+		while (l1[i] != Integer.MAX_VALUE || l2[j] != Integer.MAX_VALUE) {
+			if (l1[i] < l2[j]) {
+				resultado[k] = l1[i++];
+			} else {
+				resultado[k] = l2[j++];
+			}
+
+			k++;
+
+			if (i == l1.length) {
+				l1[--i] = Integer.MAX_VALUE;
+			}
+
+			if (j == l2.length) {
+				l2[--j] = Integer.MAX_VALUE;
+			}
+		}
+		return resultado;
+	}
+
 }
