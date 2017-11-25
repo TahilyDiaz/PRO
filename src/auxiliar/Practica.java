@@ -441,8 +441,7 @@ public class Practica {
 		return l3;
 	}
 
-	
-	//SOLUCIÓN MAURICIO
+	// SOLUCIÓN MAURICIO
 	public int[] mezclaArrays(int[] l1, int[] l2) {
 		int i = 0, j = 0, k = 0;
 		int[] resultado = new int[l1.length + l2.length];
@@ -467,4 +466,37 @@ public class Practica {
 		return resultado;
 	}
 
+	public boolean validarNIF(String nif) {
+		// Letras posibles en orden.
+		char[] letrasValidas = { 'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D', 'X', 'B', 'N', 'J', 'Z', 'S', 'Q',
+				'V', 'H', 'L', 'C', 'K', 'E' };
+
+		String numcad = "";
+
+		if (nif.length() != 9) {
+			return false;
+		} else {
+
+			// Si el último caracter es una letra.
+			if (!Character.isLetter(nif.charAt(8))) {
+				return false;
+			}
+		}
+
+		for (int i = 0; i < 8; i++) {
+			if (!Character.isDigit(nif.charAt(i))) {
+				return false;
+			}
+			numcad += nif.charAt(i);
+		}
+		
+		int numDni = Integer.parseInt(numcad);
+
+		// Comprobar si la letra corresponde
+		numDni %= 23;
+		if ((Character.toUpperCase(nif.charAt(8))) != letrasValidas[numDni]) {
+			return false;
+		}
+		return true;
+	}
 }

@@ -1,8 +1,10 @@
 package principal;
 
+import java.awt.Component;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Random;
+import javax.swing.JOptionPane;
 
 import auxiliar.Practica;
 import modelo.Datos;
@@ -12,9 +14,10 @@ import modelo.Persona;
 import modelo.Profesor;
 
 public class Principal {
+
 	public static void main(String[] args) {
 
-		Persona persona1 = new Persona();
+		/*Persona persona1 = new Persona();
 		System.out.println(persona1.toString());
 
 		Persona persona2 = new Persona();
@@ -42,9 +45,10 @@ public class Principal {
 		System.out.println("Personas: " + Persona.getContadorInstancias());
 
 		// METODOS DE LA CLASE PRACTICA--------------------
-
+		 */
+		
 		Practica prac = new Practica();
-
+		/*
 		prac.muestraNumerosDe1a100While();
 		prac.muestraNumerosDe1a100For();
 
@@ -209,5 +213,16 @@ public class Principal {
 		for (int i = 0; i < l6.length; i++) {
 			System.out.println(l6[i]);
 		}
+		*/
+		Component frame = null;
+		String nif = JOptionPane.showInputDialog("Introduzca el DNI a válidar: ");
+		boolean n2 = prac.validarNIF(nif);
+		
+		if(n2) {
+			JOptionPane.showMessageDialog(frame, nif + " es un DNI válido.");
+		} else {
+			JOptionPane.showMessageDialog(frame, nif +  " no es un DNI válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+		}
+	
 	}
 }
