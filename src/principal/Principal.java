@@ -223,6 +223,19 @@ public class Principal {
 		} else {
 			JOptionPane.showMessageDialog(frame, nif +  " no es un DNI válido", "ERROR", JOptionPane.ERROR_MESSAGE);
 		}
-	
+		
+
+		Datos dat = new Datos();
+		System.out.println("------------CLASIFICACIÓN------------");
+		int[] clasi = prac.obtenerClasificacion(dat.getResultados());
+		for (int i = 0; i < clasi.length; i++) {
+			System.out.println(clasi[i]);
+		}
+		
+		String[] equipos = new Datos().getEquipos();
+		prac.ordenaClasificacion(clasi, equipos);
+		for (int i = 0; i < equipos.length; i++) {
+			System.out.println(equipos[i] + " \t" + clasi[i]);
+		}	
 	}
 }

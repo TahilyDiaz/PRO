@@ -483,13 +483,15 @@ public class Practica {
 			}
 		}
 
+		
+		//Si son digitos
 		for (int i = 0; i < 8; i++) {
 			if (!Character.isDigit(nif.charAt(i))) {
 				return false;
 			}
 			numcad += nif.charAt(i);
 		}
-		
+
 		int numDni = Integer.parseInt(numcad);
 
 		// Comprobar si la letra corresponde
@@ -498,5 +500,45 @@ public class Practica {
 			return false;
 		}
 		return true;
+	}
+
+	public int[] obtenerClasificacion(String[][] goles) {
+		int[] puntos = new int[20];
+		int golesLocal;
+		int golesVisitantes;
+		
+		for (int i = 0; i < goles.length; i++) {
+			for (int j = 0; j < goles[i].length; j++) {
+				if (goles[i][j].indexOf("-") != -1) {
+					String[] resultado = goles[i][j].split("-");
+					golesLocal = Integer.parseInt(resultado[0]);
+					golesVisitantes = Integer.parseInt(resultado[1]);
+					if (golesLocal > golesVisitantes) {
+						puntos[i] += 3;
+					} else {
+						if (golesLocal < golesVisitantes) {
+							puntos[j] += 3;
+						} else {
+							puntos[i] += 1;
+							puntos[j] += 1;
+						}
+					}
+				}
+			}
+		}
+		return puntos;
+	}
+	
+	public void ordenaClasificacion(int[] numeros, String [] equipos) {
+		for (int i = 0; i < numeros.length - 1; i++)
+			for (int j = i + 1; j < numeros.length; j++)
+				if (numeros[i] < numeros[j]) {
+					int aux = numeros[i];
+					numeros[i] = numeros[j];
+					numeros[j] = aux;
+					String aux2 = equipos[i];
+					equipos[i] = equipos[j];
+					equipos[j] = aux2;
+				}
 	}
 }
