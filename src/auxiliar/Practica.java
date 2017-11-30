@@ -1,6 +1,7 @@
 package auxiliar;
 
 import modelo.Datos;
+import modelo.Equipo;
 import modelo.Estudiante;
 
 public class Practica {
@@ -483,8 +484,7 @@ public class Practica {
 			}
 		}
 
-		
-		//Si son digitos
+		// Si son digitos
 		for (int i = 0; i < 8; i++) {
 			if (!Character.isDigit(nif.charAt(i))) {
 				return false;
@@ -506,7 +506,7 @@ public class Practica {
 		int[] puntos = new int[20];
 		int golesLocal;
 		int golesVisitantes;
-		
+
 		for (int i = 0; i < goles.length; i++) {
 			for (int j = 0; j < goles[i].length; j++) {
 				if (goles[i][j].indexOf("-") != -1) {
@@ -528,8 +528,8 @@ public class Practica {
 		}
 		return puntos;
 	}
-	
-	public void ordenaClasificacion(int[] numeros, String [] equipos) {
+
+	public void ordenaClasificacion(int[] numeros, String[] equipos) {
 		for (int i = 0; i < numeros.length - 1; i++)
 			for (int j = i + 1; j < numeros.length; j++)
 				if (numeros[i] < numeros[j]) {
@@ -541,4 +541,114 @@ public class Practica {
 					equipos[j] = aux2;
 				}
 	}
+
+	public int[] obtenerClasificacionColumnas(String[][] goles) {
+		int[] puntos = new int[20];
+		int golesLocal;
+		int golesVisitantes;
+
+		for (int i = 0; i < goles.length; i++) {
+			for (int j = 0; j < goles[i].length; j++) {
+				if (goles[j][i].indexOf("-") != -1) {
+					String[] resultado = goles[j][i].split("-");
+					golesLocal = Integer.parseInt(resultado[0]);
+					golesVisitantes = Integer.parseInt(resultado[1]);
+					if (golesLocal > golesVisitantes) {
+						puntos[j] += 3;
+					} else {
+						if (golesLocal < golesVisitantes) {
+							puntos[i] += 3;
+						} else {
+							puntos[j] += 1;
+							puntos[i] += 1;
+						}
+					}
+				}
+			}
+		}
+		return puntos;
+	}
+
+	public Equipo[] obtenerClasificacionJornadas(int[][] ptsJornada) {
+		Equipo[] clasificacion = new Equipo[20];
+		String[] equipos = new Datos().getEquipos();
+		for (int j = 0; j < ptsJornada[0].length; j++) {
+			Equipo e = new Equipo();
+			e.setNombre(equipos[j]);
+			e.setPuntos(0);
+			for (int i = 0; i < clasificacion.length; i++) {
+				e.setPuntos(e.getPuntos() + ptsJornada[i][j]);
+				clasificacion[j] = e;
+			}
+		}
+		return clasificacion;
+	}
+	
+	
+	public boolean esPrimo (int numero) {
+		int contador = 0;
+		for (int i = 1; i <= numero; i++) {
+			if(numero%i == 0) {
+				contador = contador + 1;
+			} 
+		}
+		
+		if (contador > 2) {
+			return false;
+		}
+		return true;
+	}
+	
+	public int[] listaPri (int numero) {
+
+		int[] primos = new int[numero];
+		int i = 0;
+		int j = 1;
+		
+		while(i < numero)
+		{
+			if(esPrimo(j))
+			{
+				primos[i++] = j;
+			}
+			j++;
+		}
+		return primos;
+	}
+	
+	public int[] listaPri2 (int numero) {
+		int[] listaPrimo2 = new int[numero];
+		int indice = 0;
+		int j = 1;
+		
+		
+		for (int i = 0; i < numero; i++) {			
+			if(esPrimo(j)) {
+				listaPrimo2[i] = j;
+			}
+			j++;
+		}
+		return listaPrimo2;
+	}
+	
+	public int[] numFibo (int cuantos) {
+		int[] listaFibo = new int[cuantos];
+		int fibo1 = 0;
+		int fibo2 = 1;
+		int fibo3;
+		listaFibo[0] = fibo1;
+		listaFibo[1] = fibo2;
+		
+		
+		for (int i = 2; i < cuantos; i++) {
+			
+			fibo3 = fibo1+fibo2;
+			fibo1=fibo2;
+			fibo2=fibo3;	
+			listaFibo[i] = fibo3;
+		}
+		return listaFibo;
+	}
+	
+	
 }
