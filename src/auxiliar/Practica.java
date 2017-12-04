@@ -1,5 +1,7 @@
 package auxiliar;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import modelo.Datos;
 import modelo.Equipo;
 import modelo.Estudiante;
@@ -583,72 +585,168 @@ public class Practica {
 		}
 		return clasificacion;
 	}
-	
-	
-	public boolean esPrimo (int numero) {
+
+	public boolean esPrimo(int numero) {
 		int contador = 0;
 		for (int i = 1; i <= numero; i++) {
-			if(numero%i == 0) {
+			if (numero % i == 0) {
 				contador = contador + 1;
-			} 
+			}
 		}
-		
+
 		if (contador > 2) {
 			return false;
 		}
 		return true;
 	}
-	
-	public int[] listaPri (int numero) {
+
+	public int[] listaPri(int numero) {
 
 		int[] primos = new int[numero];
 		int i = 0;
 		int j = 1;
-		
-		while(i < numero)
-		{
-			if(esPrimo(j))
-			{
+
+		while (i < numero) {
+			if (esPrimo(j)) {
 				primos[i++] = j;
 			}
 			j++;
 		}
 		return primos;
 	}
-	
-	public int[] listaPri2 (int numero) {
+
+	public int[] listaPri2(int numero) {
 		int[] listaPrimo2 = new int[numero];
 		int indice = 0;
 		int j = 1;
-		
-		
-		for (int i = 0; i < numero; i++) {			
-			if(esPrimo(j)) {
+
+		for (int i = 0; i < numero; i++) {
+			if (esPrimo(j)) {
 				listaPrimo2[i] = j;
 			}
 			j++;
 		}
 		return listaPrimo2;
 	}
-	
-	public int[] numFibo (int cuantos) {
+
+	public int[] numFibo(int cuantos) {
 		int[] listaFibo = new int[cuantos];
 		int fibo1 = 0;
 		int fibo2 = 1;
 		int fibo3;
 		listaFibo[0] = fibo1;
 		listaFibo[1] = fibo2;
-		
-		
+
 		for (int i = 2; i < cuantos; i++) {
-			
-			fibo3 = fibo1+fibo2;
-			fibo1=fibo2;
-			fibo2=fibo3;	
+
+			fibo3 = fibo1 + fibo2;
+			fibo1 = fibo2;
+			fibo2 = fibo3;
 			listaFibo[i] = fibo3;
 		}
 		return listaFibo;
 	}
+
+	public String invierteCadenas(String cadena) {
+		String ncadena = "";
+		for (int i = cadena.length() - 1; i >= 0; i--) {
+			ncadena = ncadena + cadena.charAt(i);
+		}
+		return ncadena;
+	}
+
+	public int cuentaPalabras(String cadena) {
+		int cuenta = 1, pos;
+		cadena = cadena.trim();
+		if (cadena.isEmpty()) {
+			cuenta = 0;
+		} else {
+			pos = cadena.indexOf(" ");
+			while (pos != -1) {
+				cuenta++;
+				pos = cadena.indexOf(" ", pos + 1);
+			}
+		}
+		return cuenta;
+	}
+
+	public int sumaDiagonal(int[][] matriz) {
+		int suma = 0;
+		for (int i = 0; i < matriz.length; i++) {
+			for (int j = 0; j < matriz[i].length; j++) {
+				try {
+					if (i == j) {
+						suma += matriz[i][j];
+					}
+				} catch (Exception e) {
+				}
+			}
+		}
+		return suma;
+	}
+
+	public int maximo(int[] numeros) {
+		int aux;
+		for (int i = 0; i < numeros.length - 1; i++) {
+			for (int j = i + 1; j < numeros.length; j++) {
+				if (numeros[j] < numeros[i]) {
+					aux = numeros[i];
+					numeros[i] = numeros[j];
+					numeros[j] = aux;
+				}
+			}
+		}
+		int n = numeros.length - 1;
+		int maximo = numeros[n];
+		return maximo;
+	}
+
+	public void recorrerMatrizIrregularColumnas(int[][] matriz) {
+		int longitudMax = 0;
+		System.out.println("---------------------------");
+		for (int i = 0; i < matriz.length; i++) {
+			if (longitudMax < matriz[i].length) {
+				longitudMax = matriz[i].length;
+			}
+		}
+
+		System.out.println("maximo: " + longitudMax);
+
+		for (int j = 0; j < longitudMax; j++) {
+			System.out.println("Columna " + j + ":");
+			for (int i = 0; i < matriz.length; i++) {
+				try {
+					System.out.println("["+i+"]["+j+"]: " +matriz[i][j]);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					continue;
+				}
+			}
+		}
+	}
 	
-	
+	public void recorrerMatrizIrregularColumnasNull(Integer[][] matriz) {
+		int longitudMax = 0;
+		System.out.println("---------------------------");
+		for (int i = 0; i < matriz.length; i++) {
+			if (longitudMax < matriz[i].length) {
+				longitudMax = matriz[i].length;
+			}
+		}
+
+		System.out.println("maximo: " + longitudMax);
+
+		for (int j = 0; j < longitudMax; j++) {
+			System.out.println("Columna " + j + ":");
+			for (int i = 0; i < matriz.length; i++) {
+				try {
+					System.out.println("["+i+"]["+j+"]: " +matriz[i][j].toString());
+				} catch (NullPointerException e) {
+					System.out.println("Null");
+				} catch (ArrayIndexOutOfBoundsException e) {
+					System.out.println("Bound");
+				}
+			}
+		}
+	}
+
 }
