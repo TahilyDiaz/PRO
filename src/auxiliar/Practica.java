@@ -1,5 +1,9 @@
 package auxiliar;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
+
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import modelo.Datos;
@@ -7,6 +11,103 @@ import modelo.Equipo;
 import modelo.Estudiante;
 
 public class Practica {
+
+	// SEGUNDA EVALUACION
+
+	public ArrayList introListas() {
+		ArrayList<Estudiante> listaE;
+		listaE = new ArrayList<Estudiante>();
+		Estudiante est1 = new Estudiante(123);
+
+		listaE.add(est1); // añadir a la lista
+		listaE.add(est1);
+		listaE.add(est1);
+		listaE.add(est1);
+		listaE.add(est1);
+
+		int tam = listaE.size(); // tamaño lista
+
+		Estudiante est2 = new Estudiante(321);
+		listaE.add(0, est2);
+
+		listaE.remove(listaE.size() - 1); // borrar
+
+		// listaE.set(0, est1); //cambiar
+
+		// Estudiante e = listaE.get(0); //obtener en esa posicion
+
+		/*
+		 * for (Estudiante estudiante : listaE) {
+		 * System.out.println(estudiante.getCodGrupo()); }
+		 * 
+		 * for (int i = 0; i < listaE.size(); i++) { System.out.println(listaE.get(i));
+		 * }
+		 */
+
+		System.out.println("fin introListas");
+
+		return listaE;
+	}
+
+	public ArrayList listarEstudiantes(ArrayList<Estudiante> lista) {
+		for (Estudiante estudiante : lista) {
+			try {
+				System.out.println(estudiante.getNombre());
+			} catch (NullPointerException e) {
+
+			}
+		}
+		return lista;
+	}
+
+	public ArrayList <Integer> convierteCadenasANumeros(ArrayList<String> cadenas) {
+		ArrayList<Integer> resultado = new ArrayList<Integer>();
+
+		for (String cadena : cadenas) {
+			try {
+				resultado.add(Integer.parseInt(cadena));
+				
+			} catch (NumberFormatException e) {
+				resultado.add(-1);
+			}
+		}
+		return resultado;
+	}
+	
+	//Leer matriz y devolverla como ArrayList
+	public ArrayList<ArrayList <Integer>> convierteMatrizArrayLista(int[][] matriz){
+		
+		ArrayList<ArrayList <Integer>> resultado = new ArrayList<ArrayList<Integer>>();
+		
+		for (int[] fila : matriz) {
+			ArrayList<Integer> lista2 = new ArrayList<Integer>();
+			for (int numero : fila) {
+				lista2.add(numero);
+			}
+			resultado.add(lista2);
+		}
+		return resultado;
+	}
+	
+	
+	//Mapas, clase HashMap
+	
+	public HashMap<String, Estudiante> 	introMapas(){
+		//la clave representa el nif del estudiante
+		HashMap<String, Estudiante> resultado = new HashMap<String, Estudiante>();
+		Estudiante est = new Estudiante(123, "Paco", "435G", 'M', null, 180, null, null, 12);
+		resultado.put("444H", new Estudiante(122, "Paca", "444H", 'F', null, 185, null, null, 5));
+		
+		resultado.put(est.getNif(), est);
+		Estudiante estudiante = resultado.get("435G");
+		
+		
+		return resultado;
+	}
+	
+	
+
+	// PRIMERA EVALUACION
 
 	// private static String[] diasSem = { "Lunes", "Martes", "Miercoles", "Jueves",
 	// "Viernes", "Sabado", "Domingo" };
@@ -716,14 +817,14 @@ public class Practica {
 			System.out.println("Columna " + j + ":");
 			for (int i = 0; i < matriz.length; i++) {
 				try {
-					System.out.println("["+i+"]["+j+"]: " +matriz[i][j]);
+					System.out.println("[" + i + "][" + j + "]: " + matriz[i][j]);
 				} catch (ArrayIndexOutOfBoundsException e) {
 					continue;
 				}
 			}
 		}
 	}
-	
+
 	public void recorrerMatrizIrregularColumnasNull(Integer[][] matriz) {
 		int longitudMax = 0;
 		System.out.println("---------------------------");
@@ -739,7 +840,7 @@ public class Practica {
 			System.out.println("Columna " + j + ":");
 			for (int i = 0; i < matriz.length; i++) {
 				try {
-					System.out.println("["+i+"]["+j+"]: " +matriz[i][j].toString());
+					System.out.println("[" + i + "][" + j + "]: " + matriz[i][j].toString());
 				} catch (NullPointerException e) {
 					System.out.println("Null");
 				} catch (ArrayIndexOutOfBoundsException e) {
@@ -749,4 +850,78 @@ public class Practica {
 		}
 	}
 
+	public void hundirFlota(char[][] tablero) {
+		int a = 2;
+		int ca = 0;
+		int b = 2;
+		int cb = 0;
+		int c = 3;
+		int cc = 0;
+		int d = 1;
+		int cd = 0;
+		int e = 5;
+		int ce = 0;
+		int fin = 13;
+		int cf = 0;
+		while (true) {
+			System.out.println("PRIMERA COORDENADA: ");
+			Scanner sc = new Scanner(System.in);
+			int uno = sc.nextInt();
+			System.out.println("SEGUNDA COORDENADA: ");
+			int dos = sc.nextInt();
+
+			if (tablero[uno][dos] == 'a') {
+				ca++;
+				cf++;
+				System.out.println("TOCADO!");
+				if (ca == a) {
+					System.out.println("¡HUNDIDO!");
+				}
+			}
+			if (tablero[uno][dos] == 'b') {
+				cb++;
+				cf++;
+				System.out.println("TOCADO!");
+				if (cb == b) {
+					System.out.println("¡HUNDIDO!");
+
+				}
+			}
+			if (tablero[uno][dos] == 'c') {
+				cc++;
+				cf++;
+				System.out.println("TOCADO!");
+				if (cc == c) {
+					System.out.println("¡HUNDIDO!");
+
+				}
+			}
+			if (tablero[uno][dos] == 'd') {
+				cd++;
+				cf++;
+				System.out.println("TOCADO!");
+				if (cd == d) {
+					System.out.println("¡HUNDIDO!");
+
+				}
+			}
+			if (tablero[uno][dos] == 'e') {
+				ce++;
+				cf++;
+				System.out.println("TOCADO!");
+				if (ce == e) {
+					System.out.println("¡HUNDIDO!");
+
+				}
+			}
+
+			if (tablero[uno][dos] == 'x') {
+				System.out.println("VUELVA A INTENTARLO.");
+			}
+
+			if (cf == fin) {
+				System.out.println("Fin del juego, GANASTE!");
+			}
+		}
+	}
 }

@@ -2,6 +2,7 @@ package principal;
 
 import java.awt.Component;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -51,9 +52,10 @@ public class Principal {
 		 * 
 		 * prac.muestraFor2(6, 11); prac.muestraRango(5, 10);
 		 * 
-		 * Random random1 = new Random(); int min = 10; int max = 30;
-		 * System.out.println("Numero aleatorio : " + ((int) (random1.nextDouble() *
-		 * (max - min + 1)) + min));
+		 * Random random1 = new Random();
+		 *  int min = 10; 
+		 *  int max = 30;
+		 * System.out.println("Numero aleatorio : " + ((int) (random1.nextDouble() * (max - min + 1)) + min));
 		 * 
 		 * prac.generaAleatorios(5, 5, 7); String cad1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		 * prac.estadisticaCadena(cad1); prac.estadisticaCadena1(cad1);
@@ -224,7 +226,7 @@ public class Principal {
 		 * (int i = 0; i < listFibo.length; i++) { System.out.println(listFibo[i]); }
 		 */
 
-		System.out.println("---------------");
+		/*System.out.println("---------------");
 		String cadena = "TAHILY";
 		String ncadena = prac.invierteCadenas(cadena);
 		System.out.println(ncadena);
@@ -262,6 +264,41 @@ public class Principal {
 		};
 		
 		prac.recorrerMatrizIrregularColumnasNull(matriz2);
+		 */
+		
+		
+		//SEGUNDA
+		prac.introListas();
+		ArrayList<Estudiante> listaE;
 
+		
+		//prac.listarEstudiantes(prac.introListas());
+		System.out.println("-----------------------");
+			
+		
+		ArrayList <String> cadenas = new ArrayList<String>();
+		cadenas.add("123");
+		cadenas.add("e3");
+		cadenas.add("222");
+		cadenas.add("1x3");
+		cadenas.add("333");
+		cadenas.add("xxx");
+		
+		ArrayList<Integer> lista = prac.convierteCadenasANumeros(cadenas);
+		
+		int[][] visitantesYear = { { 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34}, 
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35 }, 
+				{ 23, 24, 25, 26, 27,28, 29, 30, 31, 32, 33, 36 }, 
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,37 }, 
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 38 }, 
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 39 }, 
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 40 } 
+			};
+		
+		ArrayList<ArrayList<Integer>> list = prac.convierteMatrizArrayLista(visitantesYear);
+		
+		for (ArrayList<Integer> arrayList : list) {
+			System.out.println(arrayList);
+		}
 	}
 }
