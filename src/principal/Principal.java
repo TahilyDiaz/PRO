@@ -304,8 +304,11 @@ public class Principal {
 		HashMap<String, Estudiante> mapa = prac.introMapas();
 		Estudiante noexisto = mapa.get("noexisto");
 		
-		prac.leerFicheroTexto();
+		String fic = "ficheros/personas.txt";
+		ArrayList<String> lista2 = new ArrayList<String>();
+		lista2 = prac.leerFicheroArrayList(fic);
 		
+		HashMap<String, String> mapa2 = prac.leerFicheroHashMap(fic);
 		System.out.println("fin");
 	}
 }

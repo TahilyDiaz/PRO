@@ -125,20 +125,20 @@ public class Practica {
 			BufferedReader br = new BufferedReader(fr);
 			String linea;
 			LocalDate fechaHoy;
-			//System.out.println(LocalDate.now());
+			System.out.println(LocalDate.now());
 			// Leer el fichero linea a linea
 			while ((linea = br.readLine()) != null) {
 				String[] campos = linea.split("&&");
 				System.out.println(calculaEdad(campos[2]));
+				 fr.close();
+				 br.close();
 			}
-			fr.close();
-			br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		} 
-	}	
+	}
 	
 	public int calculaEdad(String fechaNacimiento) {
 		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyyyy");
@@ -147,9 +147,69 @@ public class Practica {
 		Period periodo = Period.between(fechaNac, ahora);
 		System.out.printf("Tu edad es: %s años, %s meses y %s dias ", periodo.getYears(), periodo.getMonths(), periodo.getDays());
 		return periodo.getYears();
-		
+	}	
+	
+	
+	public ArrayList<String> leerFicheroArrayList(String fic) {
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader(fic);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			LocalDate fechaHoy;
+			//System.out.println(LocalDate.now());
+			// Leer el fichero linea a linea
+			ArrayList<String> lista = new ArrayList<String>();
+			while ((linea = br.readLine()) != null) {
+				//String[] campos = linea.split("&&");
+				lista.add(linea);
+				//System.out.println(calculaEdad(campos[2]));
+			}
+			fr.close();
+			br.close();
+			return lista;
+		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		}
+	}	
+	
+	public HashMap<String, String> leerFicheroHashMap(String fic) {
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader(fic);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			// Leer el fichero linea a linea
+			HashMap<String, String> mapa = new HashMap<String, String>();
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("&&");
+				String nif = campos[0];
+				mapa.put(nif, linea);
+			}
+			fr.close();
+			br.close();
+			return mapa;
+		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	// PRIMERA EVALUACION
 
 	// private static String[] diasSem = { "Lunes", "Martes", "Miercoles", "Jueves",
