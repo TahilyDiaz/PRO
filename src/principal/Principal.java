@@ -4,7 +4,10 @@ import java.awt.Component;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
+
 import javax.swing.JOptionPane;
 
 import auxiliar.Practica;
@@ -297,8 +300,12 @@ public class Principal {
 		
 		ArrayList<ArrayList<Integer>> list = prac.convierteMatrizArrayLista(visitantesYear);
 		
-		for (ArrayList<Integer> arrayList : list) {
-			System.out.println(arrayList);
-		}
+		
+		HashMap<String, Estudiante> mapa = prac.introMapas();
+		Estudiante noexisto = mapa.get("noexisto");
+		
+		prac.leerFicheroTexto();
+		
+		System.out.println("fin");
 	}
 }

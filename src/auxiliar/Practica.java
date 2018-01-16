@@ -1,10 +1,18 @@
 package auxiliar;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
-
-import javax.swing.text.StyledEditorKit.ForegroundAction;
+import java.util.Set;
 
 import modelo.Datos;
 import modelo.Equipo;
@@ -49,7 +57,7 @@ public class Practica {
 		return listaE;
 	}
 
-	public ArrayList listarEstudiantes(ArrayList<Estudiante> lista) {
+	public void listaEstudiantes(ArrayList<Estudiante> lista) {
 		for (Estudiante estudiante : lista) {
 			try {
 				System.out.println(estudiante.getNombre());
@@ -57,28 +65,26 @@ public class Practica {
 
 			}
 		}
-		return lista;
 	}
 
-	public ArrayList <Integer> convierteCadenasANumeros(ArrayList<String> cadenas) {
+	public ArrayList<Integer> convierteCadenasANumeros(ArrayList<String> cadenas) {
 		ArrayList<Integer> resultado = new ArrayList<Integer>();
 
 		for (String cadena : cadenas) {
 			try {
 				resultado.add(Integer.parseInt(cadena));
-				
 			} catch (NumberFormatException e) {
 				resultado.add(-1);
 			}
 		}
 		return resultado;
 	}
-	
-	//Leer matriz y devolverla como ArrayList
-	public ArrayList<ArrayList <Integer>> convierteMatrizArrayLista(int[][] matriz){
-		
-		ArrayList<ArrayList <Integer>> resultado = new ArrayList<ArrayList<Integer>>();
-		
+
+	// Leer matriz y devolverla como ArrayList
+	public ArrayList<ArrayList<Integer>> convierteMatrizArrayLista(int[][] matriz) {
+
+		ArrayList<ArrayList<Integer>> resultado = new ArrayList<ArrayList<Integer>>();
+
 		for (int[] fila : matriz) {
 			ArrayList<Integer> lista2 = new ArrayList<Integer>();
 			for (int numero : fila) {
@@ -88,24 +94,61 @@ public class Practica {
 		}
 		return resultado;
 	}
-	
-	
-	//Mapas, clase HashMap
-	
-	public HashMap<String, Estudiante> 	introMapas(){
-		//la clave representa el nif del estudiante
+
+	// Mapas, clase HashMap
+
+	public HashMap<String, Estudiante> introMapas() {
+		// la clave representa el nif del estudiante
 		HashMap<String, Estudiante> resultado = new HashMap<String, Estudiante>();
 		Estudiante est = new Estudiante(123, "Paco", "435G", 'M', null, 180, null, null, 12);
-		resultado.put("444H", new Estudiante(122, "Paca", "444H", 'F', null, 185, null, null, 5));
-		
+
 		resultado.put(est.getNif(), est);
 		Estudiante estudiante = resultado.get("435G");
-		
-		
+		Estudiante est2 = new Estudiante(123, "Carlos", "435G", 'M', null, 180, null, null, 12);
+
+		resultado.put("435G", est2);
+
+		resultado.put("444H", new Estudiante(122, "Paca", "444H", 'F', null, 185, null, null, 5));
+
+		Set<String> claves = resultado.keySet();
+		for (String clave : claves) {
+			//System.out.println(resultado.get(clave).getNombre());
+		}
+
 		return resultado;
 	}
+
+	public void leerFicheroTexto() {
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader("ficheros/personas.txt");
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			LocalDate fechaHoy;
+			//System.out.println(LocalDate.now());
+			// Leer el fichero linea a linea
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("&&");
+				System.out.println(calculaEdad(campos[2]));
+			}
+			fr.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} 
+	}	
 	
-	
+	public int calculaEdad(String fechaNacimiento) {
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyyyy");
+		LocalDate fechaNac = LocalDate.parse(fechaNacimiento, fmt);
+		LocalDate ahora = LocalDate.now();
+		Period periodo = Period.between(fechaNac, ahora);
+		System.out.printf("Tu edad es: %s años, %s meses y %s dias ", periodo.getYears(), periodo.getMonths(), periodo.getDays());
+		return periodo.getYears();
+		
+	}
 
 	// PRIMERA EVALUACION
 
