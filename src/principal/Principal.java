@@ -317,6 +317,15 @@ public class Principal {
 		
 		prac.generaAleatoriosArrayList(10, 1, 5);
 		
+		ArrayList<String> cadena = new ArrayList <String>();	
+		cadena.add("Hola");
+		cadena.add("234");
+		cadena.add("2e4");
+		cadena.add("214");
+		cadena.add("204");
+		
+		prac.convierteCadenasANumerosArrayList(cadena);
+		
 		System.out.println("fin");
 	}
 }

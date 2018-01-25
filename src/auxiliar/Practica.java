@@ -255,19 +255,18 @@ public class Practica {
 		return resultado;
 	}
 
-	public HashMap<String, Float> resumenVentasPorVendedor(HashMap<String, ArrayList<Float>>ventas){
+	public HashMap<String, Float> resumenVentasPorVendedor(HashMap<String, ArrayList<Float>> ventas) {
 		HashMap<String, Float> resultado = new HashMap<String, Float>();
 		float acumulador = 0;
-		
+
 		Set<String> claves = resultado.keySet();
 		for (String clave : claves) {
-			
-			
+
 			for (String string : claves) {
-				
+
 			}
 		}
-				
+
 		return resultado;
 	}
 
@@ -422,9 +421,9 @@ public class Practica {
 		}
 		return ale;
 	}
-	
+
 	public ArrayList<Integer> generaAleatoriosArrayList(int repetir, int min, int max) {
-		
+
 		ArrayList<Integer> aleatorios = new ArrayList<Integer>();
 
 		for (int i = 0; i < repetir; i++) {
@@ -589,6 +588,21 @@ public class Practica {
 				resultado[i] = -1;
 			}
 		}
+		return resultado;
+	}
+
+	public ArrayList<Integer> convierteCadenasANumerosArrayList(ArrayList<String> cadenas) {
+
+		ArrayList<Integer> resultado = new ArrayList<Integer>();
+
+		for (String cadena : cadenas) {
+			try {
+				resultado.add(Integer.parseInt(cadena));
+			} catch (NumberFormatException e) {
+				resultado.add(-1);
+			}
+		}
+
 		return resultado;
 	}
 
