@@ -112,10 +112,20 @@ public class Practica {
 
 		Set<String> claves = resultado.keySet();
 		for (String clave : claves) {
-			//System.out.println(resultado.get(clave).getNombre());
+			// System.out.println(resultado.get(clave).getNombre());
 		}
 
 		return resultado;
+	}
+
+	public int calculaEdad(String fechaNacimiento) {
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyyyy");
+		LocalDate fechaNac = LocalDate.parse(fechaNacimiento, fmt);
+		LocalDate ahora = LocalDate.now();
+		Period periodo = Period.between(fechaNac, ahora);
+		System.out.printf("Tu edad es: %s años, %s meses y %s dias ", periodo.getYears(), periodo.getMonths(),
+				periodo.getDays());
+		return periodo.getYears();
 	}
 
 	public void leerFicheroTexto() {
@@ -130,26 +140,48 @@ public class Practica {
 			while ((linea = br.readLine()) != null) {
 				String[] campos = linea.split("&&");
 				System.out.println(calculaEdad(campos[2]));
-				 fr.close();
-				 br.close();
 			}
+			fr.close();
+			br.close();
 		} catch (FileNotFoundException e) {
 			System.out.println(e.getMessage());
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
-		} 
+		}
 	}
-	
-	public int calculaEdad(String fechaNacimiento) {
-		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("ddMMyyyy");
-		LocalDate fechaNac = LocalDate.parse(fechaNacimiento, fmt);
-		LocalDate ahora = LocalDate.now();
-		Period periodo = Period.between(fechaNac, ahora);
-		System.out.printf("Tu edad es: %s años, %s meses y %s dias ", periodo.getYears(), periodo.getMonths(), periodo.getDays());
-		return periodo.getYears();
-	}	
-	
-	
+
+	public void leerFicheroTextoEdad() {
+		try {
+			// Abrir el fichero
+			int contador = 0;
+			int acumulador = 0;
+
+			FileReader fr = new FileReader("ficheros/personas.txt");
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			LocalDate fechaHoy;
+			System.out.println(LocalDate.now());
+			// Leer el fichero linea a linea
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("&&");
+				int edad = calculaEdad(campos[2]);
+				System.out.println(edad);
+				contador++;
+				acumulador += edad;
+				System.out.println(acumulador);
+			}
+
+			int resultado = acumulador / contador;
+			System.out.println(resultado);
+			fr.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	public ArrayList<String> leerFicheroArrayList(String fic) {
 		try {
 			// Abrir el fichero
@@ -157,13 +189,10 @@ public class Practica {
 			BufferedReader br = new BufferedReader(fr);
 			String linea;
 			LocalDate fechaHoy;
-			//System.out.println(LocalDate.now());
 			// Leer el fichero linea a linea
 			ArrayList<String> lista = new ArrayList<String>();
 			while ((linea = br.readLine()) != null) {
-				//String[] campos = linea.split("&&");
 				lista.add(linea);
-				//System.out.println(calculaEdad(campos[2]));
 			}
 			fr.close();
 			br.close();
@@ -173,8 +202,8 @@ public class Practica {
 		} catch (IOException e) {
 			return null;
 		}
-	}	
-	
+	}
+
 	public HashMap<String, String> leerFicheroHashMap(String fic) {
 		try {
 			// Abrir el fichero
@@ -198,18 +227,50 @@ public class Practica {
 		}
 	}
 
+	public HashMap<String, ArrayList<Float>> resumenVentasVendedor(String ficheroVentas) {
+		HashMap<String, ArrayList<Float>> resultado = new HashMap<String, ArrayList<Float>>();
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader(ficheroVentas);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			LocalDate fechaHoy;
+			System.out.println(LocalDate.now());
+			// Leer el fichero linea a linea
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("%");
+				if (resultado.get(campos[1]) == null) {
+					resultado.put(campos[1], new ArrayList<Float>());
+				}
+				resultado.get(campos[1]).add(Float.parseFloat(campos[2]));
+			}
+			fr.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return resultado;
+	}
+
+	public HashMap<String, Float> resumenVentasPorVendedor(HashMap<String, ArrayList<Float>>ventas){
+		HashMap<String, Float> resultado = new HashMap<String, Float>();
+		float acumulador = 0;
+		
+		Set<String> claves = resultado.keySet();
+		for (String clave : claves) {
+			
+			
+			for (String string : claves) {
+				
+			}
+		}
+				
+		return resultado;
+	}
+
 	// PRIMERA EVALUACION
 
 	// private static String[] diasSem = { "Lunes", "Martes", "Miercoles", "Jueves",
@@ -360,6 +421,17 @@ public class Practica {
 			ale[i] = (int) (Math.random() * (max - min + 1)) + min;
 		}
 		return ale;
+	}
+	
+	public ArrayList<Integer> generaAleatoriosArrayList(int repetir, int min, int max) {
+		
+		ArrayList<Integer> aleatorios = new ArrayList<Integer>();
+
+		for (int i = 0; i < repetir; i++) {
+			aleatorios.add((int) (Math.random() * (max - min + 1)) + min);
+		}
+
+		return aleatorios;
 	}
 
 	public int[] estadisticaArray(int repetir, int mini, int maxi) {

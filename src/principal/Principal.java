@@ -309,6 +309,14 @@ public class Principal {
 		lista2 = prac.leerFicheroArrayList(fic);
 		
 		HashMap<String, String> mapa2 = prac.leerFicheroHashMap(fic);
+		String fic2 = "ficheros/ventasDeptoAlmacen.txt";
+		HashMap<String,ArrayList<Float>> resumenVentasVendedor=prac.resumenVentasVendedor(fic2);
+		
+		
+		prac.leerFicheroTextoEdad();
+		
+		prac.generaAleatoriosArrayList(10, 1, 5);
+		
 		System.out.println("fin");
 	}
 }
