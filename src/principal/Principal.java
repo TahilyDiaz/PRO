@@ -326,6 +326,10 @@ public class Principal {
 		
 		prac.convierteCadenasANumerosArrayList(cadena);
 		
+		HashMap<String, ArrayList <Float>> v = prac.resumenVentasVendedor(fic2);
+		
+		prac.resumenVentasPorVendedor(v);
+		
 		
 		System.out.println("fin");
 	}

@@ -256,20 +256,24 @@ public class Practica {
 		}
 		return resultado;
 	}
+	
+	//----------TOTAL POR VENDEDOR------
 
 	public HashMap<String, Float> resumenVentasPorVendedor(HashMap<String, ArrayList<Float>> ventas) {
 		HashMap<String, Float> resultado = new HashMap<String, Float>();
 		Set<String> claves = ventas.keySet();
 		for (String clave : claves) {
-			int acumulador = 0;
-			Float precio = 0f;
-			for (int i = 0; i < ventas.get(clave).size(); i++) {
-				precio += ventas.get(clave).get(i) + acumulador;
+			float acumuladoVendedor = 0f;
+			ArrayList<Float> listaVentas = ventas.get(clave);
+			for (Float importe : listaVentas) {
+				acumuladoVendedor += importe;
 			}
-			resultado.put(clave, precio);
+			resultado.put(clave,acumuladoVendedor);
 		}
 		return resultado;
 	}
+	
+	
 
 
 	// PRIMERA EVALUACION
