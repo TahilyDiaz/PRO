@@ -1,9 +1,13 @@
 package auxiliar;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.Writer;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.format.DateTimeFormatter;
@@ -256,8 +260,8 @@ public class Practica {
 		}
 		return resultado;
 	}
-	
-	//----------TOTAL POR VENDEDOR------
+
+	// ----------TOTAL POR VENDEDOR------
 
 	public HashMap<String, Float> resumenVentasPorVendedor(HashMap<String, ArrayList<Float>> ventas) {
 		HashMap<String, Float> resultado = new HashMap<String, Float>();
@@ -268,13 +272,30 @@ public class Practica {
 			for (Float importe : listaVentas) {
 				acumuladoVendedor += importe;
 			}
-			resultado.put(clave,acumuladoVendedor);
+			resultado.put(clave, acumuladoVendedor);
 		}
 		return resultado;
 	}
-	
-	
 
+	public int generaAleatoriosN(int min, int max) {
+		int num = (int) (Math.random() * (max - min + 1)) + min;
+		return num;
+	}
+
+	// ESCRIBIR FICHERO
+	public void generaFicheroLanzamientosDado(int cuantos, String rutaFichero) {
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter(rutaFichero));
+			for (int i = 0; i < cuantos; i++) {
+				int numero = generaAleatoriosN(1, 6);
+				bw.write(i + "#" + numero + "\n");
+			}
+			bw.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 	// PRIMERA EVALUACION
 
@@ -498,7 +519,7 @@ public class Practica {
 			}
 		}
 	}
-	
+
 	public static void listarEst(ArrayList<Estudiante> lista) {
 		for (Estudiante estudiante : lista) {
 			try {
@@ -542,11 +563,11 @@ public class Practica {
 			System.out.println(lis2);
 		}
 	}
-	
+
 	public static void listarEst3(ArrayList<Estudiante> lista) {
 		int contador1 = 0;
 		ArrayList<String> lista2 = new ArrayList<String>();
-		//String[] lista2 = new String[contador1];
+		// String[] lista2 = new String[contador1];
 
 		// Para recorrer el array y contar el numero de parametros no null
 		for (Estudiante estudiante : lista) {
@@ -578,7 +599,7 @@ public class Practica {
 			}
 		}
 	}
-	
+
 	public void listarTodos(ArrayList<ArrayList<Estudiante>> todos) {
 		int contador2 = 0;
 		ArrayList<Estudiante> estudiantes2 = new ArrayList<Estudiante>();
@@ -714,7 +735,7 @@ public class Practica {
 		}
 		return numeros;
 	}
-	
+
 	public ArrayList<Integer> ordenaEnterosArrayList(ArrayList<Integer> numeros) {
 		Collections.sort(numeros);
 		return numeros;
@@ -798,8 +819,6 @@ public class Practica {
 		}
 		return l3;
 	}
-	
-	
 
 	// SOLUCIÓN MAURICIO
 	public int[] mezclaArrays(int[] l1, int[] l2) {

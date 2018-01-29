@@ -330,6 +330,11 @@ public class Principal {
 		
 		prac.resumenVentasPorVendedor(v);
 		
+		prac.generaAleatoriosArrayList(15, 1, 4);
+		
+		String fic3 = "ficheros/lanzamientos.txt";
+		
+		prac.generaFicheroLanzamientosDado(10, fic3);
 		
 		System.out.println("fin");
 	}
