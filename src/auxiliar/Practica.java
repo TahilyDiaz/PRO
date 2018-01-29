@@ -9,6 +9,8 @@ import java.time.Period;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Scanner;
@@ -257,18 +259,18 @@ public class Practica {
 
 	public HashMap<String, Float> resumenVentasPorVendedor(HashMap<String, ArrayList<Float>> ventas) {
 		HashMap<String, Float> resultado = new HashMap<String, Float>();
-		float acumulador = 0;
-
-		Set<String> claves = resultado.keySet();
+		Set<String> claves = ventas.keySet();
 		for (String clave : claves) {
-
-			for (String string : claves) {
-
+			int acumulador = 0;
+			Float precio = 0f;
+			for (int i = 0; i < ventas.get(clave).size(); i++) {
+				precio += ventas.get(clave).get(i) + acumulador;
 			}
+			resultado.put(clave, precio);
 		}
-
 		return resultado;
 	}
+
 
 	// PRIMERA EVALUACION
 
@@ -492,6 +494,16 @@ public class Practica {
 			}
 		}
 	}
+	
+	public static void listarEst(ArrayList<Estudiante> lista) {
+		for (Estudiante estudiante : lista) {
+			try {
+				System.out.println(estudiante);
+			} catch (NullPointerException e) {
+
+			}
+		}
+	}
 
 	public static void listarEst2(Estudiante[] lista) {
 		for (Estudiante estudiante : lista) {
@@ -526,6 +538,31 @@ public class Practica {
 			System.out.println(lis2);
 		}
 	}
+	
+	public static void listarEst3(ArrayList<Estudiante> lista) {
+		int contador1 = 0;
+		ArrayList<String> lista2 = new ArrayList<String>();
+		//String[] lista2 = new String[contador1];
+
+		// Para recorrer el array y contar el numero de parametros no null
+		for (Estudiante estudiante : lista) {
+			if (estudiante != null) {
+				contador1++;
+			}
+		}
+
+		// Nuevo contador para ir incrementando el indice
+		for (Estudiante estudiante : lista) {
+			if (estudiante != null) {
+				lista2.add(estudiante.getNombre());
+			}
+		}
+
+		// Mostramos por pantalla
+		for (String lis2 : lista2) {
+			System.out.println(lis2);
+		}
+	}
 
 	public static void listarTodosEst(Estudiante[][] todos) {
 		for (int i = 0; i < todos.length; i++) {
@@ -536,6 +573,25 @@ public class Practica {
 				}
 			}
 		}
+	}
+	
+	public void listarTodos(ArrayList<ArrayList<Estudiante>> todos) {
+		int contador2 = 0;
+		ArrayList<Estudiante> estudiantes2 = new ArrayList<Estudiante>();
+		for (int i = 0; i < todos.size(); i++) {
+			for (int j = 0; j < todos.get(i).size(); j++) {
+				if (todos.get(i).get(j) != null) {
+					System.out.println("nombre: " + todos.get(i).get(j).getNombre());
+					estudiantes2.set(contador2, todos.get(i).get(j));
+					contador2++;
+				}
+			}
+		}
+		for (Estudiante estudiante : estudiantes2) {
+			System.out.println(estudiante);
+			;
+		}
+
 	}
 
 	public int visitantesIslaYear(int isla, int[][] visitantesYear) {
@@ -654,6 +710,11 @@ public class Practica {
 		}
 		return numeros;
 	}
+	
+	public ArrayList<Integer> ordenaEnterosArrayList(ArrayList<Integer> numeros) {
+		Collections.sort(numeros);
+		return numeros;
+	}
 
 	public void ordenaEnteros2(int[] numeros) {
 		int aux;
@@ -733,6 +794,8 @@ public class Practica {
 		}
 		return l3;
 	}
+	
+	
 
 	// SOLUCIÓN MAURICIO
 	public int[] mezclaArrays(int[] l1, int[] l2) {

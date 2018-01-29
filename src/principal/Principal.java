@@ -326,6 +326,7 @@ public class Principal {
 		
 		prac.convierteCadenasANumerosArrayList(cadena);
 		
+		
 		System.out.println("fin");
 	}
 }
