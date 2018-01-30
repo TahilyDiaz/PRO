@@ -332,10 +332,14 @@ public class Principal {
 		
 		prac.generaAleatoriosArrayList(15, 1, 4);
 		
+		
+		
 		String fic3 = "ficheros/lanzamientos.txt";
 		
 		prac.generaFicheroLanzamientosDado(10, fic3);
 		
+		
+		Practica.grabarObjetosEnFichero("ficheros/estudiantes.obj");
 		System.out.println("fin");
 	}
 }

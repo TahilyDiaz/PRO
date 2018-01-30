@@ -3,9 +3,11 @@ package auxiliar;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
 import java.time.LocalDate;
@@ -286,17 +288,50 @@ public class Practica {
 	public void generaFicheroLanzamientosDado(int cuantos, String rutaFichero) {
 		try {
 			BufferedWriter bw = new BufferedWriter(new FileWriter(rutaFichero));
-			for (int i = 0; i < cuantos; i++) {
+			for (int i = 1; i <= cuantos; i++) {
 				int numero = generaAleatoriosN(1, 6);
 				bw.write(i + "#" + numero + "\n");
 			}
 			bw.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
 		}
 	}
+	
+	
+	public static void grabarObjetosEnFichero(String fichero) {
+		Estudiante est = new Estudiante(1, "Carlos1", "111G", 'M', null, 180, null, null, 12);
+		Estudiante est1 = new Estudiante(2, "Carlos2", "222G", 'M', null, 180, null, null, 12);
+		Estudiante est2 = new Estudiante(3, "Carlos3", "333G", 'M', null, 180, null, null, 12);
+		
+		//abrir fichero de objetos 
+		try {
+			ObjectOutputStream fObj = new ObjectOutputStream(new FileOutputStream(fichero));
+			
+			//guardar los objetos estudiantes en el fichero
+			fObj.writeObject(est);
+			fObj.writeObject(est1);
+			fObj.writeObject(est2);
+			
+			fObj.close();
+			
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Fichero no encontrado");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Error IO");
+		}
+		System.out.println("FIN DEL METODO");
+	}
+	
 
+	//Recuperar fichero
+	
+	
 	// PRIMERA EVALUACION
 
 	// private static String[] diasSem = { "Lunes", "Martes", "Miercoles", "Jueves",
@@ -310,6 +345,9 @@ public class Practica {
 		}
 	}
 
+	
+	
+	
 	public void muestraNumerosDe1a100For() {
 		for (int i = 1; i <= 100; i++) {
 			System.out.println(i);
