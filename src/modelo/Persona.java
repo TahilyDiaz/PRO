@@ -1,10 +1,15 @@
 package modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Persona {
+public class Persona implements Serializable {
 	// public abstract class Persona{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	// DECLARACION DE VARIABLES
 	private String nif;
 	private String nombre;

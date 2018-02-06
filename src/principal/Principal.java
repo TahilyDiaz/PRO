@@ -339,7 +339,15 @@ public class Principal {
 		prac.generaFicheroLanzamientosDado(10, fic3);
 		
 		
-		Practica.grabarObjetosEnFichero("ficheros/estudiantes.obj");
+		//Practica.grabarObjetosEnFichero("ficheros/estudiantes.obj");
+		
+		//prac.leeObjetosDesdeFichero("ficheros/estudiantes.obj");
+		
+		Practica.grabarObjetosListaEnFichero("ficheros/listaEst.obj");
+		prac.leeObjetosDesdeFichero2("ficheros/listaEst.obj");
+		
+		prac.repasoMetodo1("ficheros/vehiculos.txt");
+		
 		System.out.println("fin");
 	}
 }

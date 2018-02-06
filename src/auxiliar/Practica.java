@@ -2,11 +2,14 @@ package auxiliar;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.io.Writer;
@@ -25,6 +28,7 @@ import java.util.Set;
 import modelo.Datos;
 import modelo.Equipo;
 import modelo.Estudiante;
+import modelo.Vehiculo;
 
 public class Practica {
 
@@ -299,39 +303,154 @@ public class Practica {
 			System.out.println(e.getMessage());
 		}
 	}
-	
-	
+
+	// GRABAR OBJETOS EN FICHERO
 	public static void grabarObjetosEnFichero(String fichero) {
 		Estudiante est = new Estudiante(1, "Carlos1", "111G", 'M', null, 180, null, null, 12);
 		Estudiante est1 = new Estudiante(2, "Carlos2", "222G", 'M', null, 180, null, null, 12);
 		Estudiante est2 = new Estudiante(3, "Carlos3", "333G", 'M', null, 180, null, null, 12);
-		
-		//abrir fichero de objetos 
+
+		// abrir fichero de objetos
 		try {
-			ObjectOutputStream fObj = new ObjectOutputStream(new FileOutputStream(fichero));
-			
-			//guardar los objetos estudiantes en el fichero
+			FileOutputStream fOs = new FileOutputStream(fichero);
+			ObjectOutputStream fObj = new ObjectOutputStream(fOs);
+
+			// guardar los objetos estudiantes en el fichero
 			fObj.writeObject(est);
 			fObj.writeObject(est1);
 			fObj.writeObject(est2);
-			
 			fObj.close();
-			
-			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Fichero no encontrado");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			System.out.println("Error IO");
 		}
 		System.out.println("FIN DEL METODO");
 	}
-	
 
-	//Recuperar fichero
+	// LEER FICHERO
+	public void leeObjetosDesdeFichero(String fichero) {
+		try {
+			FileInputStream fIs = new FileInputStream(fichero);
+
+			ObjectInputStream fObj = new ObjectInputStream(fIs);
+
+			// recorrer fichero
+			Estudiante est = null;
+			while (fIs.available() > 0) {
+				est = (Estudiante) fObj.readObject();
+				System.out.println(est.getNif());
+			}
+			fIs.close();
+			fObj.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Fichero no encontrado");
+		} catch (IOException e) {
+			System.out.println("Error IO");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Clase no encontrada");
+		}
+	}
+
+	// GRABAR LISTA EN FICHERO
+	public static void grabarObjetosListaEnFichero(String fichero) {
+		Estudiante est = new Estudiante(1, "Carlos1", "111G", 'M', null, 180, null, null, 12);
+		Estudiante est1 = new Estudiante(2, "Carlos2", "222G", 'M', null, 180, null, null, 12);
+		Estudiante est2 = new Estudiante(3, "Carlos3", "333G", 'M', null, 180, null, null, 12);
+
+		ArrayList<Estudiante> listaEst = new ArrayList<Estudiante>();
+		listaEst.add(est);
+		listaEst.add(est1);
+		listaEst.add(est2);
+
+		// abrir fichero de objetos
+		try {
+			FileOutputStream fOs = new FileOutputStream(fichero);
+			ObjectOutputStream fObj = new ObjectOutputStream(fOs);
+
+			// guardar los objetos estudiantes en el fichero
+			fObj.writeObject(listaEst);
+			fObj.close();
+			fOs.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Fichero no encontrado");
+		} catch (IOException e) {
+			System.out.println("Error IO");
+		}
+		System.out.println("FIN DEL METODO");
+	}
+
+	// LEER FICHERO CON LISTA
+	public void leeObjetosDesdeFichero2(String fichero) {
+		try {
+			FileInputStream fIs = new FileInputStream(fichero);
+
+			ObjectInputStream fObj = new ObjectInputStream(fIs);
+
+			// recorrer fichero
+			Estudiante est = null;
+			ArrayList<Estudiante> lista = null;
+			while (fIs.available() > 0) {
+				lista = (ArrayList<Estudiante>) fObj.readObject();
+			}
+			System.out.println(lista.get(0).getNombre());
+			fIs.close();
+			fObj.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Fichero no encontrado");
+		} catch (IOException e) {
+			System.out.println("Error IO");
+		} catch (ClassNotFoundException e) {
+			System.out.println("Clase no encontrada");
+		}
+	}
 	
 	
+	public ArrayList<Vehiculo> repasoMetodo1 (String fichero){
+		ArrayList<Vehiculo> resultado = new ArrayList<Vehiculo>();
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader(fichero);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("#");
+				DateTimeFormatter  form = DateTimeFormatter.ofPattern("yyyyMMdd");
+				LocalDate fecha = LocalDate.parse(campos[3],form);
+				Vehiculo veh = new Vehiculo(Integer.parseInt(campos[0]),campos[1], campos[2], fecha, Float.parseFloat(campos[4]));
+				resultado.add(veh);
+				
+			}
+			fr.close();
+			br.close();
+			
+		} catch (FileNotFoundException e) {
+			return null;
+		} catch (IOException e) {
+			return null;
+		}
+		return resultado;
+	}
+	
+	public void vehiculoEnFichero(ArrayList<Vehiculo> listaVehiculo,String fichero) {
+		 		try {
+					ObjectOutputStream fObj = new ObjectOutputStream(new FileOutputStream(fichero));
+		
+		 			for (Vehiculo vehiculo : listaVehiculo) {
+		 				fObj.writeObject(vehiculo);	
+		 			}
+		 
+		 			fObj.close();
+		 		} catch (FileNotFoundException e) {
+		 			e.printStackTrace();
+		 		} catch (IOException e) {
+		 			e.printStackTrace();
+		 		}
+		 	}
+
+
+
 	// PRIMERA EVALUACION
 
 	// private static String[] diasSem = { "Lunes", "Martes", "Miercoles", "Jueves",
@@ -345,9 +464,6 @@ public class Practica {
 		}
 	}
 
-	
-	
-	
 	public void muestraNumerosDe1a100For() {
 		for (int i = 1; i <= 100; i++) {
 			System.out.println(i);
