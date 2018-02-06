@@ -404,27 +404,29 @@ public class Practica {
 			System.out.println("Clase no encontrada");
 		}
 	}
-	
-	
-	public ArrayList<Vehiculo> repasoMetodo1 (String fichero){
+
+	// LEE Y DEVUELVE UN ARRAYLIST
+	public ArrayList<Vehiculo> repasoMetodo1(String fichero) {
 		ArrayList<Vehiculo> resultado = new ArrayList<Vehiculo>();
 		try {
 			// Abrir el fichero
 			FileReader fr = new FileReader(fichero);
 			BufferedReader br = new BufferedReader(fr);
 			String linea;
-			
+
 			while ((linea = br.readLine()) != null) {
 				String[] campos = linea.split("#");
-				DateTimeFormatter  form = DateTimeFormatter.ofPattern("yyyyMMdd");
-				LocalDate fecha = LocalDate.parse(campos[3],form);
-				Vehiculo veh = new Vehiculo(Integer.parseInt(campos[0]),campos[1], campos[2], fecha, Float.parseFloat(campos[4]));
+				DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyyMMdd");
+				LocalDate fecha = LocalDate.parse(campos[3], form);
+				Vehiculo veh = new Vehiculo(Integer.parseInt(campos[0]), campos[1], campos[2], fecha,
+						Float.parseFloat(campos[4]));
 				resultado.add(veh);
-				
+
+				/**/
 			}
 			fr.close();
 			br.close();
-			
+
 		} catch (FileNotFoundException e) {
 			return null;
 		} catch (IOException e) {
@@ -432,24 +434,23 @@ public class Practica {
 		}
 		return resultado;
 	}
-	
-	public void vehiculoEnFichero(ArrayList<Vehiculo> listaVehiculo,String fichero) {
-		 		try {
-					ObjectOutputStream fObj = new ObjectOutputStream(new FileOutputStream(fichero));
-		
-		 			for (Vehiculo vehiculo : listaVehiculo) {
-		 				fObj.writeObject(vehiculo);	
-		 			}
-		 
-		 			fObj.close();
-		 		} catch (FileNotFoundException e) {
-		 			e.printStackTrace();
-		 		} catch (IOException e) {
-		 			e.printStackTrace();
-		 		}
-		 	}
 
+	// GRABA UN FICHERO CON OBJETOS
+	public void vehiculoEnFichero(ArrayList<Vehiculo> listaVehiculo, String fichero) {
+		try {
+			ObjectOutputStream fObj = new ObjectOutputStream(new FileOutputStream(fichero));
 
+			for (Vehiculo vehiculo : listaVehiculo) {
+				fObj.writeObject(vehiculo);
+			}
+
+			fObj.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	// PRIMERA EVALUACION
 
