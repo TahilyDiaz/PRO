@@ -348,6 +348,10 @@ public class Principal {
 		
 		prac.repasoMetodo1("ficheros/vehiculos.txt");
 		
+		String fic4 = "ficheros/visitantesIslas.txt";
+		
+		HashMap<Integer, ArrayList<Float>> xyz = prac.contarVisitantesIslas(fic4);
+		prac.listadoIslasMeses(fic4);
 		System.out.println("fin");
 	}
 }

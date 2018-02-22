@@ -452,6 +452,95 @@ public class Practica {
 		}
 	}
 
+	public void inicializaVisitantesIsla(HashMap<Integer, ArrayList<Float>> resultado) {
+		ArrayList<Float> visitantesMeses;
+		for (int isla = 0; isla < 7; isla++) { // recorre islas
+			visitantesMeses = new ArrayList<Float>();
+			for (int mes = 0; mes < 12; mes++) // pone a cero los meses
+				visitantesMeses.add(0f);
+			resultado.put(isla, visitantesMeses);
+		}
+	}
+
+	public HashMap<Integer, ArrayList<Float>> contarVisitantesIslas(String fichero) {
+		HashMap<Integer, ArrayList<Float>> resultado = new HashMap<Integer, ArrayList<Float>>();
+
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader(fichero);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+
+			inicializaVisitantesIsla(resultado);
+
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("@");
+				int isla = Integer.parseInt(campos[0]);
+				int mes = Integer.parseInt(campos[1]);
+				float numeroVisitantes = Float.parseFloat(campos[2]);
+
+				resultado.get(isla - 1).set(mes - 1, numeroVisitantes);
+			}
+			fr.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+
+		return resultado;
+	}
+	
+	
+	public void listadoIslasMeses(String fichero) {
+		HashMap<Integer, ArrayList<Float>> xyzz = contarVisitantesIslas(fichero);
+		// recorrer el HashMap
+		String[] islas = { "GRAN CANARIA", "LANZAROTE", "FUERTEVENTURA", "TENERIFE", "LA PALMA", "LA GOMERA", "EL HIERRO" };
+		String[] meses = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
+		
+		Set<Integer> claves = xyzz.keySet();
+		System.out.print("\t\t\t\t");
+		
+		for (int i = 0; i < meses.length; i++) {
+			System.out.print(meses[i] + "\t");
+		}
+		System.out.println();
+		
+		float acumuladorMes[] = new float[12];
+		
+		for (Integer clave : claves) {
+			ArrayList<Float> visitantes = xyzz.get(clave);
+			System.out.print(islas[clave] + "\t");
+			float acumuladorIsla = 0f;
+			
+			for (int i = 0; i < visitantes.size(); i++) {
+				acumuladorIsla += visitantes.get(i);
+				acumuladorMes[i] += visitantes.get(i);
+				System.out.printf("%.0f\t", visitantes.get(i)*1000);	
+			}
+			
+			System.out.println("total visitantes " + islas[clave] + " = " + acumuladorIsla);
+			System.out.println();
+		}
+		for (float acuMes : acumuladorMes) {
+			System.out.print("\t\t" + acuMes);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	// PRIMERA EVALUACION
 
 	// private static String[] diasSem = { "Lunes", "Martes", "Miercoles", "Jueves",
