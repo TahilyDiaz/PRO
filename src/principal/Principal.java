@@ -1,6 +1,10 @@
 package principal;
 
 import java.awt.Component;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,10 +59,9 @@ public class Principal {
 		 * 
 		 * prac.muestraFor2(6, 11); prac.muestraRango(5, 10);
 		 * 
-		 * Random random1 = new Random();
-		 *  int min = 10; 
-		 *  int max = 30;
-		 * System.out.println("Numero aleatorio : " + ((int) (random1.nextDouble() * (max - min + 1)) + min));
+		 * Random random1 = new Random(); int min = 10; int max = 30;
+		 * System.out.println("Numero aleatorio : " + ((int) (random1.nextDouble() *
+		 * (max - min + 1)) + min));
 		 * 
 		 * prac.generaAleatorios(5, 5, 7); String cad1 = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 		 * prac.estadisticaCadena(cad1); prac.estadisticaCadena1(cad1);
@@ -229,129 +232,115 @@ public class Principal {
 		 * (int i = 0; i < listFibo.length; i++) { System.out.println(listFibo[i]); }
 		 */
 
-		/*System.out.println("---------------");
-		String cadena = "TAHILY";
-		String ncadena = prac.invierteCadenas(cadena);
-		System.out.println(ncadena);
-
-		System.out.println("---------------");
-		String cadena1 = "Hola mundo que tal ? a s s ";
-		int cuenta = prac.cuentaPalabras(cadena1);
-		System.out.println(cuenta);
-
-		System.out.println("----------");
-		int[][] matriz = { 
-				{ 1, 2, 3, 4, 5 }, 
-				{ 1 }, 
-				{ 1, 2, 3, 4, 5 }, 
-				{ 1, 2, 3 }, 
-				{ 1, 2, 3, 4, 5 } 
-			};
-		int contador = prac.sumaDiagonal(matriz);
-		System.out.println(contador);
-
-		System.out.println("-------------------------");
-		int[] numeros = { 1, 2, 5, 7, 8, 9, 5, 6, 8, 7, 8, 9, 5, 5, 8, 9, 5, 4, 2 };
-		int maximo = prac.maximo(numeros);
-		System.out.println(maximo);
-
-		prac.recorrerMatrizIrregularColumnas(matriz);
-		
-		
-		Integer[][] matriz2 = { 
-				{ 1, 2, 3, 4,null, 5 }, 
-				{ 1 }, 
-				{ 1, 2, 3, 4, 5 }, 
-				{ 1, 2, 3 }, 
-				{ 1, 2, 3, 4, 5 }
-		};
-		
-		prac.recorrerMatrizIrregularColumnasNull(matriz2);
+		/*
+		 * System.out.println("---------------"); String cadena = "TAHILY"; String
+		 * ncadena = prac.invierteCadenas(cadena); System.out.println(ncadena);
+		 * 
+		 * System.out.println("---------------"); String cadena1 =
+		 * "Hola mundo que tal ? a s s "; int cuenta = prac.cuentaPalabras(cadena1);
+		 * System.out.println(cuenta);
+		 * 
+		 * System.out.println("----------"); int[][] matriz = { { 1, 2, 3, 4, 5 }, { 1
+		 * }, { 1, 2, 3, 4, 5 }, { 1, 2, 3 }, { 1, 2, 3, 4, 5 } }; int contador =
+		 * prac.sumaDiagonal(matriz); System.out.println(contador);
+		 * 
+		 * System.out.println("-------------------------"); int[] numeros = { 1, 2, 5,
+		 * 7, 8, 9, 5, 6, 8, 7, 8, 9, 5, 5, 8, 9, 5, 4, 2 }; int maximo =
+		 * prac.maximo(numeros); System.out.println(maximo);
+		 * 
+		 * prac.recorrerMatrizIrregularColumnas(matriz);
+		 * 
+		 * 
+		 * Integer[][] matriz2 = { { 1, 2, 3, 4,null, 5 }, { 1 }, { 1, 2, 3, 4, 5 }, {
+		 * 1, 2, 3 }, { 1, 2, 3, 4, 5 } };
+		 * 
+		 * prac.recorrerMatrizIrregularColumnasNull(matriz2);
 		 */
-		
-		
-		//SEGUNDA
-		prac.introListas();
+
+		// SEGUNDA
+		/*prac.introListas();
 		ArrayList<Estudiante> listaE;
 
-		
-		//prac.listarEstudiantes(prac.introListas());
+		// prac.listarEstudiantes(prac.introListas());
 		System.out.println("-----------------------");
-			
-		
-		ArrayList <String> cadenas = new ArrayList<String>();
+
+		ArrayList<String> cadenas = new ArrayList<String>();
 		cadenas.add("123");
 		cadenas.add("e3");
 		cadenas.add("222");
 		cadenas.add("1x3");
 		cadenas.add("333");
 		cadenas.add("xxx");
-		
+
 		ArrayList<Integer> lista = prac.convierteCadenasANumeros(cadenas);
-		
-		int[][] visitantesYear = { { 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34}, 
-				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35 }, 
-				{ 23, 24, 25, 26, 27,28, 29, 30, 31, 32, 33, 36 }, 
-				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33,37 }, 
-				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 38 }, 
-				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 39 }, 
-				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 40 } 
-			};
-		
+
+		int[][] visitantesYear = { { 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34 },
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 35 }, { 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 36 },
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 37 }, { 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 38 },
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 39 },
+				{ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 40 } };
+
 		ArrayList<ArrayList<Integer>> list = prac.convierteMatrizArrayLista(visitantesYear);
-		
-		
+
 		HashMap<String, Estudiante> mapa = prac.introMapas();
 		Estudiante noexisto = mapa.get("noexisto");
-		
+
 		String fic = "ficheros/personas.txt";
 		ArrayList<String> lista2 = new ArrayList<String>();
 		lista2 = prac.leerFicheroArrayList(fic);
-		
+
 		HashMap<String, String> mapa2 = prac.leerFicheroHashMap(fic);
 		String fic2 = "ficheros/ventasDeptoAlmacen.txt";
-		HashMap<String,ArrayList<Float>> resumenVentasVendedor=prac.resumenVentasVendedor(fic2);
+		HashMap<String, ArrayList<Float>> resumenVentasVendedor = prac.resumenVentasVendedor(fic2);*/
+
+		// prac.leerFicheroTextoEdad();
+
+		// prac.generaAleatoriosArrayList(10, 1, 5);
+
+		//ArrayList<String> cadena = new ArrayList<String>();
+		//cadena.add("Hola");
+		//cadena.add("234");
+		//cadena.add("2e4");
+		//cadena.add("214");
+		//cadena.add("204");
+
+		// prac.convierteCadenasANumerosArrayList(cadena);
+
+		//HashMap<String, ArrayList<Float>> v = prac.resumenVentasVendedor(fic2);
+
+		// prac.resumenVentasPorVendedor(v);
+
+		// prac.generaAleatoriosArrayList(15, 1, 4);
+
+		//String fic3 = "ficheros/lanzamientos.txt";
+
+		// prac.generaFicheroLanzamientosDado(10, fic3);
+
+		// Practica.grabarObjetosEnFichero("ficheros/estudiantes.obj");
+
+		// prac.leeObjetosDesdeFichero("ficheros/estudiantes.obj");
+
+		// Practica.grabarObjetosListaEnFichero("ficheros/listaEst.obj");
+		// prac.leeObjetosDesdeFichero2("ficheros/listaEst.obj");
+
+		// prac.repasoMetodo1("ficheros/vehiculos.txt");
+
+		//String fic4 = "ficheros/visitantesIslas.txt";
+
+		// HashMap<Integer, ArrayList<Float>> xyz = prac.contarVisitantesIslas(fic4);
+		// prac.listadoIslasMeses(fic4);
+
+		// prac.leerFicheroTextoOrdenado("ficheros/estudiantesPorGrupo.txt");
+
+		// prac.escribirEstudiantesTxtAObjetos("ficheros/estudiante.txt",
+		// "ficheros/estudiantes.obj");
+		// prac.escribirEstudiantesObjetosATxt("ficheros/estudiante.txt",
+		// "ficheros/estudiantes.obj");
+
 		
-		
-		prac.leerFicheroTextoEdad();
-		
-		prac.generaAleatoriosArrayList(10, 1, 5);
-		
-		ArrayList<String> cadena = new ArrayList <String>();	
-		cadena.add("Hola");
-		cadena.add("234");
-		cadena.add("2e4");
-		cadena.add("214");
-		cadena.add("204");
-		
-		prac.convierteCadenasANumerosArrayList(cadena);
-		
-		HashMap<String, ArrayList <Float>> v = prac.resumenVentasVendedor(fic2);
-		
-		prac.resumenVentasPorVendedor(v);
-		
-		prac.generaAleatoriosArrayList(15, 1, 4);
-		
-		
-		
-		String fic3 = "ficheros/lanzamientos.txt";
-		
-		prac.generaFicheroLanzamientosDado(10, fic3);
-		
-		
-		//Practica.grabarObjetosEnFichero("ficheros/estudiantes.obj");
-		
-		//prac.leeObjetosDesdeFichero("ficheros/estudiantes.obj");
-		
-		Practica.grabarObjetosListaEnFichero("ficheros/listaEst.obj");
-		prac.leeObjetosDesdeFichero2("ficheros/listaEst.obj");
-		
-		prac.repasoMetodo1("ficheros/vehiculos.txt");
-		
-		String fic4 = "ficheros/visitantesIslas.txt";
-		
-		HashMap<Integer, ArrayList<Float>> xyz = prac.contarVisitantesIslas(fic4);
-		prac.listadoIslasMeses(fic4);
+		HashMap<String, ArrayList<String>> datosListado = prac.generarDatosListadoProvincias("ficheros/provincias.txt");
+		prac.listadoProvinciasPorCA(datosListado);
 		System.out.println("fin");
 	}
+
 }

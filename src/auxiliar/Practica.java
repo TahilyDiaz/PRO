@@ -162,6 +162,44 @@ public class Practica {
 		}
 	}
 
+	public void leerFicheroTextoOrdenado(String rutaFichero) {
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader(rutaFichero);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			String codigo_leido, codigo_anterior = null;
+			int contadorTotal = 0;
+			int contadorGrupos = 0;
+
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("&&");
+
+				codigo_leido = campos[0];
+
+				if (codigo_anterior == null) {
+					codigo_anterior = codigo_leido;
+				}
+
+				if (!codigo_leido.equals(codigo_anterior)) {
+					System.out.println("Hay " + contadorGrupos + " alumnos en el grupo " + codigo_anterior);
+					contadorTotal += contadorGrupos;
+					contadorGrupos = 0;
+					codigo_anterior = codigo_leido;
+				}
+				contadorGrupos++;
+			}
+			System.out.println("Hay en total: " + contadorTotal);
+
+			fr.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	public void leerFicheroTextoEdad() {
 		try {
 			// Abrir el fichero
@@ -328,6 +366,80 @@ public class Practica {
 		System.out.println("FIN DEL METODO");
 	}
 
+	public static Estudiante crearEstudianteLeido(String[] datos) {
+		int grupo = Integer.parseInt(datos[0]);
+		Estudiante estudiante = new Estudiante(grupo);
+		estudiante.setNif(datos[1]);
+		estudiante.setNombre(datos[2]);
+		estudiante.setSexo(datos[3].charAt(0));
+
+		DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyyMMdd");
+		LocalDate fechaNac = LocalDate.parse(datos[4], form);
+		estudiante.setFecha(fechaNac);
+
+		estudiante.setAltura(Integer.parseInt(datos[5]));
+		estudiante.setMadre(null);
+		estudiante.setPadre(null);
+
+		return estudiante;
+	}
+
+	public static void escribirEstudiantesObjetosATxt(String rutaTxt, String rutaObjeto) {
+
+		try {
+			// Abrir el fichero de entrada
+			FileInputStream fIs = new FileInputStream(rutaObjeto);
+			ObjectInputStream fObj = new ObjectInputStream(fIs);
+
+			// recorrer fichero
+			Estudiante est = null;
+			while (fIs.available() > 0) {
+				est = (Estudiante) fObj.readObject();
+				System.out.println(est.getNif());
+			}
+			fIs.close();
+			fObj.close();
+
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public static void escribirEstudiantesTxtAObjetos(String rutaObjeto, String rutaTxt) {
+
+		try {
+			// Abrir el fichero de entrada
+			FileReader fr = new FileReader(rutaTxt);
+			BufferedReader br = new BufferedReader(fr);
+			// Abrir el fichero de salida
+			FileOutputStream fOs = new FileOutputStream(rutaObjeto);
+			ObjectOutputStream fObj = new ObjectOutputStream(fOs);
+
+			String linea;
+
+			// Leer el fichero linea a linea
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("#");
+				// crear estudiante a partir del registro leido
+				Estudiante estudiante = crearEstudianteLeido(campos);
+				// guardar los objetos estudiantes en el fichero
+				fObj.writeObject(estudiante);
+			}
+			fr.close();
+			br.close();
+			fObj.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+	}
+
 	// LEER FICHERO
 	public void leeObjetosDesdeFichero(String fichero) {
 		try {
@@ -491,35 +603,36 @@ public class Practica {
 
 		return resultado;
 	}
-	
-	
+
 	public void listadoIslasMeses(String fichero) {
 		HashMap<Integer, ArrayList<Float>> xyzz = contarVisitantesIslas(fichero);
 		// recorrer el HashMap
-		String[] islas = { "GRAN CANARIA", "LANZAROTE", "FUERTEVENTURA", "TENERIFE", "LA PALMA", "LA GOMERA", "EL HIERRO" };
-		String[] meses = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" };
-		
+		String[] islas = { "GRAN CANARIA", "LANZAROTE", "FUERTEVENTURA", "TENERIFE", "LA PALMA", "LA GOMERA",
+				"EL HIERRO" };
+		String[] meses = { "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre",
+				"Octubre", "Noviembre", "Diciembre" };
+
 		Set<Integer> claves = xyzz.keySet();
 		System.out.print("\t\t\t\t");
-		
+
 		for (int i = 0; i < meses.length; i++) {
 			System.out.print(meses[i] + "\t");
 		}
 		System.out.println();
-		
+
 		float acumuladorMes[] = new float[12];
-		
+
 		for (Integer clave : claves) {
 			ArrayList<Float> visitantes = xyzz.get(clave);
 			System.out.print(islas[clave] + "\t");
 			float acumuladorIsla = 0f;
-			
+
 			for (int i = 0; i < visitantes.size(); i++) {
 				acumuladorIsla += visitantes.get(i);
 				acumuladorMes[i] += visitantes.get(i);
-				System.out.printf("%.0f\t", visitantes.get(i)*1000);	
+				System.out.printf("%.0f\t", visitantes.get(i) * 1000);
 			}
-			
+
 			System.out.println("total visitantes " + islas[clave] + " = " + acumuladorIsla);
 			System.out.println();
 		}
@@ -527,20 +640,133 @@ public class Practica {
 			System.out.print("\t\t" + acuMes);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
+	
+	// LISTADO DE PROVINCIAS POR CCAA.
+	// Primer metodo
+	// Leer fichero y meter comunidades en AL
+	
+	public String[] leerCA(String rutaComunidades) {
+		String[] comunidades = new String[19];
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader(rutaComunidades);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			int i = 0;
+			while ((linea = br.readLine()) != null)
+				comunidades[i++] = linea.split("%")[1];
+			fr.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return comunidades;
+	}
+	
+	
+	// Segundo metodo
+	// Recorrer provincias y crear HM con cada comunidad de clave
+	// y valor la lista de sus provincias
+	// devolver HM
+	
+	public HashMap<String, ArrayList<String>> generarDatosListadoProvincias(String rutaProvincias) {
+		String[] comunidades = leerCA("ficheros/comunidades.txt");
+		HashMap<String, ArrayList<String>> datosListado = new HashMap<String, ArrayList<String>>();
+		try {
+			// Abrir el fichero
+			FileReader fr = new FileReader(rutaProvincias);
+			BufferedReader br = new BufferedReader(fr);
+			String linea;
+			int i = 0;
+			while ((linea = br.readLine()) != null) {
+				String[] campos = linea.split("%");
+				if (datosListado.get(comunidades[Integer.parseInt(campos[2]) - 1]) == null) 
+				{
+					datosListado.put(comunidades[Integer.parseInt(campos[2]) - 1], new ArrayList<String>());
+				}
+				datosListado.get(comunidades[Integer.parseInt(campos[2]) - 1]).add(campos[1] + "#" + campos[3]);
+			}
+			fr.close();
+			br.close();
+		} catch (FileNotFoundException e) {
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			System.out.println(e.getMessage());
+		}
+		return datosListado;
+	}
+
+	
+	// Tercer metodo
+	// Recorrer y listar HM anterior
+		
+	public void listadoProvinciasPorCA(HashMap<String, ArrayList<String>> datosListado) {
+		// recorrer hm de entrada creando el de salida
+		Set<String> comunidades = datosListado.keySet();
+		for (String comunidad : comunidades) {
+			ArrayList<String> listaProvincias = datosListado.get(comunidad);
+			int acumuladoCA = 0;
+			System.out.println("CCAA : " + comunidad);
+			for (String provincia : listaProvincias) {
+				acumuladoCA += Integer.parseInt(provincia.split("#")[1]);
+				System.out.println(provincia.split("#")[0] + ", " + provincia.split("#")[1]);
+			}
+			System.out.println("Total padrón CCAA : " + comunidad + " = " + acumuladoCA);
+		}
+	}
+
+	
+	
+	///////PRUEBAS
+	
+	public int[] getVisitantesMesYear(ArrayList<HashMap<Integer, Integer>> listaVisitantes) {
+		int[] visitantesAcumuladoMes = new int[12];
+		for (int i = 0; i < 12; i++) { // recorremos los meses, horizontalmente
+			visitantesAcumuladoMes[i] = 0;
+			for (int j = 0; j < 7; j++) // recorremos las islas, verticalmente
+				visitantesAcumuladoMes[i] += listaVisitantes.get(j).get(i).intValue();
+		}
+		return visitantesAcumuladoMes;
+	}
+
+	public int[] getVisitantesIslaYear(ArrayList<HashMap<Integer, Integer>> listaVisitantes) {
+		int[] visitantesAcumuladoIsla = new int[listaVisitantes.size()];
+		HashMap<Integer, Integer> hm = new HashMap<Integer, Integer>();
+		for (int i = 0; i < listaVisitantes.size(); i++) {
+			visitantesAcumuladoIsla[i] = 0;
+			hm = listaVisitantes.get(i);
+			Set<Integer> claves = hm.keySet();
+			for (Integer clave : claves) {
+				visitantesAcumuladoIsla[i] += hm.get(clave).intValue();
+			}
+		}
+		return visitantesAcumuladoIsla;
+	}
+
+	public void mostrarVisitantesIslaMes(ArrayList<HashMap<Integer, Integer>> listaVisitantes) {
+		String[] meses = { "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE",
+				"OCTUBRE", "NOVIEMBRE", "DICIEMBRE" };
+		String[] islas = { "GRAN CANARIA", "LANZAROTE", "FUERTEVENTURA", "TENERIFE", "LA PALMA", "GOMERA",
+				"EL HIERRO" };
+		int isla = 0;
+		for (String mes : meses) {
+			System.out.print("\t" + mes);
+		}
+		System.out.println();
+		for (HashMap<Integer, Integer> visitasIslaYear : listaVisitantes) {
+			System.out.println(islas[isla++]);
+			for (Integer mes = 0; mes < 12; mes++)
+				System.out.print("\t" + visitasIslaYear.get(mes).intValue());
+			System.out.println();
+		}
+	}
+	
+	
+	
+	
 	// PRIMERA EVALUACION
 
 	// private static String[] diasSem = { "Lunes", "Martes", "Miercoles", "Jueves",
