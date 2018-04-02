@@ -21,10 +21,15 @@ import modelo.Equipo;
 import modelo.Estudiante;
 import modelo.Persona;
 import modelo.Profesor;
+import modelo.dao.AccesoDatos;
 
 public class Principal {
 
 	public static void main(String[] args) {
+		
+		
+		AccesoDatos ad = new AccesoDatos();
+		ad.getAllRecords("localhost", "tienda", "root", "", "books");
 
 		/*
 		 * Persona persona1 = new Persona(); System.out.println(persona1.toString());
@@ -338,8 +343,8 @@ public class Principal {
 		// "ficheros/estudiantes.obj");
 
 		
-		HashMap<String, ArrayList<String>> datosListado = prac.generarDatosListadoProvincias("ficheros/provincias.txt");
-		prac.listadoProvinciasPorCA(datosListado);
+		//HashMap<String, ArrayList<String>> datosListado = prac.generarDatosListadoProvincias("ficheros/provincias.txt");
+		//prac.listadoProvinciasPorCA(datosListado);
 		System.out.println("fin");
 	}
 
